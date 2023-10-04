@@ -1,0 +1,24 @@
+name: Build my gitbook and deploy to gh-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  main-to-gh-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout main
+        uses: actions/checkout@v2
+        with:
+         ref: main
+
+      - name: Gitbook Action           # https://github.com/ZanderZhao/gitbook-action/releases
+        uses: ZanderZhao/gitbook-action@v1.2.4  # -> or ZanderZhao/gitbook-action@master.  If not use master click above, use latest please 
+        with:                                   #    or fork this repo and use YourName/gitbook-action@master
+          token: ${{ secrets.PERSONAL_TOKEN }}  # -> remember add this in settings/secrets as following
+          time_zone: Asia/Taipei
+          source_branch: main
